@@ -46,17 +46,13 @@ start_cycles = [0] * SIZE
 while True:
     direction = instructions[count % len(instructions)]
     result = [navigation_instructions[res][getDirection(direction)] for res in result]
-    print(result)
+    # print(result)
 
     for i in range(SIZE):
-        visited = already_visited[i]
-        if len(visited) >= 2:
-            continue
-        if len(visited) < 2 and result[i].endswith("Z"):
-            visited.append((result[i], count))
-        if len(visited) == 2:
-            cycle_sizes[i] = abs(visited[0][1] - visited[1][1])
+        if cycle_sizes[i] == 0 and result[i].endswith("Z"):
+            cycle_sizes[i] = count + 1
             count_full += 1
+    
     if count_full == SIZE:
         break
 
@@ -66,5 +62,7 @@ print(already_visited)
 print(cycle_sizes)
 # this works because the first time a Z is hit, is twice the length of the cycle
 # so no need to use the chinese reminder theorem
+# and what is called cycle sizes would be the as of CRT in x = a_i mod n_i
+# and n_i are the really cycle sizes
 print(math.lcm(*cycle_sizes))
 
