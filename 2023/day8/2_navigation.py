@@ -39,10 +39,8 @@ navigation_instructions = dict(map(getMapPair, navigation))
 count = 0
 result = startNodes
 print(result, endNodes)
-already_visited = [[] for i in range(SIZE)]
 count_full = 0
 cycle_sizes = [0] * SIZE
-start_cycles = [0] * SIZE
 while True:
     direction = instructions[count % len(instructions)]
     result = [navigation_instructions[res][getDirection(direction)] for res in result]
@@ -58,7 +56,6 @@ while True:
 
     count += 1
 
-print(already_visited)
 print(cycle_sizes)
 # this works because the first time a Z is hit, is twice the length of the cycle
 # so no need to use the chinese reminder theorem
