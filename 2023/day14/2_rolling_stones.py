@@ -1,6 +1,6 @@
 from copy import copy, deepcopy
 
-grid = open('c:/malu/programming/advent_of_code/adventOfCode/2023/day14/input.txt', 'r').read().split('\n')
+grid = open('input.txt', 'r').read().split('\n')
 
 n = len(grid)
 

@@ -24,4 +24,4 @@ def f(line):
 
     return dp(0, 0)
 
-print(sum(map(f, open('c://malu//programming//advent_of_code//adventOfCode//2023//day12//input.txt'))))
+print(sum(map(f, open('input.txt'))))

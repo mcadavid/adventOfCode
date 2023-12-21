@@ -1,6 +1,6 @@
 import re
 
-patterns = open('c:/malu/programming/advent_of_code/adventOfCode/2023/day13/input.txt').read().split('\n\n')
+patterns = open('input.txt').read().split('\n\n')
 
 smudge_table = dict()
 
