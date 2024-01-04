@@ -12,7 +12,8 @@ lines = []
 for line in f:
     line = line.strip()
     pos, velocity = line.split('@')
-    lines.append((list(map(int, pos.split(',')))[0:2], list(map(int, velocity.split(',')))[0:2]))
+    lines.append((list(map(int, pos.split(',')))[0:2], list(
+        map(int, velocity.split(',')))[0:2]))
 
 
 # print(lines)
@@ -21,7 +22,7 @@ min_coor = sys.maxsize
 min_d = sys.maxsize
 max_coor = 0
 max_d = -sys.maxsize
-for ([x1,y1], [vx1, vy1]), ([x2,y2], [vx2, vy2]) in combinations(lines, 2):
+for ([x1, y1], [vx1, vy1]), ([x2, y2], [vx2, vy2]) in combinations(lines, 2):
     # print([x1,y1], [vx1, vy1])
     # print([x2,y2], [vx2, vy2])
     min_coor = min(min_coor, x1, y1)
@@ -32,12 +33,12 @@ for ([x1,y1], [vx1, vy1]), ([x2,y2], [vx2, vy2]) in combinations(lines, 2):
     m2 = vy2 / vx2
     b1 = y1 - m1 * x1
     b2 = y2 - m2 * x2
-    if m1 == m2: # lines are parallel
+    if m1 == m2:  # lines are parallel
         if b1 == b2:
-            result += 1 # the lines will only intersect if they are equal
-        print("parallel lines: m, b", m1,b1)
+            result += 1  # the lines will only intersect if they are equal
+        print("parallel lines: m, b", m1, b1)
     else:
-        # m1 != m2 
+        # m1 != m2
         x = (b2 - b1) / (m1 - m2)
         if range_l <= x <= range_r:
             y = m1 * x + b1
@@ -51,12 +52,9 @@ for ([x1,y1], [vx1, vy1]), ([x2,y2], [vx2, vy2]) in combinations(lines, 2):
                     print("t1 or t2 are 0")
 
 
-    
 print(result)
 print(min_coor, min_d)
 print(max_coor, max_d)
-
-
 
 
 # Hailstone A: 19, 13, 30 @ -2, 1, -2

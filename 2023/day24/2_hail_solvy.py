@@ -11,10 +11,12 @@ lines = []
 for line in f:
     line = line.strip()
     pos, velocity = line.split('@')
-    lines.append((list(map(int, pos.split(','))), list(map(int, velocity.split(',')))))
+    lines.append((list(map(int, pos.split(','))),
+                 list(map(int, velocity.split(',')))))
 
-x, y, z, vx, vy, vz = Symbol('x'), Symbol('y'), Symbol('z'), Symbol('vx'), Symbol('vy'), Symbol('vz')
-t = [Symbol('t'+ str(i)) for i in range(len(lines)) ]
+x, y, z, vx, vy, vz = Symbol('x'), Symbol('y'), Symbol(
+    'z'), Symbol('vx'), Symbol('vy'), Symbol('vz')
+t = [Symbol('t' + str(i)) for i in range(len(lines))]
 equations = []
 count = 0
 break_val = 5
@@ -31,8 +33,6 @@ solutions = solve(equations, *([x, y, z, vx, vy, vz] + t[0:break_val]))
 print(solutions[0][0] + solutions[0][1] + solutions[0][2])
 
 print(solutions)
-
-
 
 
 # Hailstone: 19, 13, 30 @ -2, 1, -2

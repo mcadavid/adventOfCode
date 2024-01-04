@@ -25,8 +25,8 @@ for line in f:
         conj_memory[i][source[1:]] = 'low'
         sources[i].append(source[1:])
 
-assert len(sources['rx'])==1
-print( sources['rx'][0])
+assert len(sources['rx']) == 1
+print(sources['rx'][0])
 sources_from_rx = sources[sources['rx'][0]]
 # only cl reaches rx, the sources_from_rx reach cl
 # if they are low then cl would be high and rx will be low
@@ -34,7 +34,7 @@ sources_from_rx = sources[sources['rx'][0]]
 print(sources_from_rx)
 in_cycle = defaultdict(bool)
 
-            
+
 # print("process", process)
 # print("flip flops", ff_states)
 # print("conjunctions memory", conj_memory)
@@ -43,28 +43,28 @@ in_cycle = defaultdict(bool)
 steps = deque()
 low = 0
 high = 0
-old_high, old_low = 0,0
+old_high, old_low = 0, 0
 cycle = {}
-k=0
+k = 0
 candidates = []
 while True:
     steps.append(("roadcaster", 'button', "low"))
-    #print(ff_states, conj_memory, k)
+    # print(ff_states, conj_memory, k)
     while steps:
         module, from_, pulse = steps.popleft()
 
         if pulse == 'low' and module in sources_from_rx:
-            # starting now all modules will arrive at the same time at rx 
+            # starting now all modules will arrive at the same time at rx
             # we have four different starts: broadcaster -> ct, hr, ft, qm
             # only cl reaches rx, the sources_from_rx reach cl
             # if they are low then cl would be high and rx will be low
             # ['js', 'qs', 'dt', 'ts']
             # Analog to
-            # we have four busses start at the same time, when will they meet again at rx?
+            # we have four busses start ['js', 'qs', 'dt', 'ts'] at the same time, when will they meet again at rx?
             if module in cycle and in_cycle[module]:
                 print(f'k={k} cycle={cycle[module] + 1} module={module}')
                 candidates.append(cycle[module] + 1)
-            
+
             in_cycle[module] = True
             cycle[module] = k
 
@@ -85,34 +85,28 @@ while True:
             if pulse == 'low':
                 ff_states[module] = not state
                 if state:
-                    pulse = 'low' 
+                    pulse = 'low'
                 else:
                     pulse = 'high'
                 for o in process[module]:
                     steps.append((o, module, pulse))
-            else: 
+            else:
                 continue
         elif module in conjunctions:
             conj_memory[module][from_] = pulse
-            all_high = all(conj_memory[module][i] == 'high' for i in conj_memory[module])
+            all_high = all(conj_memory[module][i] ==
+                           'high' for i in conj_memory[module])
             if all_high:
                 pulse = 'low'
             else:
                 pulse = 'high'
             for o in process[module]:
                 steps.append((o, module, pulse))
-        
+
     k += 1
     # if k==999:
     #     break
 
-        
 
 print(low, high, k)
 print(low, high, low * high)
-
-
-
-
-
-
